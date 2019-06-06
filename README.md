@@ -17,6 +17,7 @@ WIP
 * `git checkout -b your-branch-name` to create a branch from your current branch
 * `git branch` to see a list of your branches
 * `git pull origin name-of-branch` to pull remote code to local branch
+* `git clone address-from-github` to clone repo from github
 
 # Project Goal
 
