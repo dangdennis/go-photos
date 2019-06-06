@@ -13,8 +13,10 @@ WIP
 * `git add .` to stage your code changes
 * `git commit -m "Your message here"` to create commit with message
 * `git push` to push code to repo
+* `git checkout your-branch-name` to switch branches
 * `git checkout -b your-branch-name` to create a branch from your current branch
 * `git branch` to see a list of your branches
+* `git pull origin name-of-branch` to pull remote code to local branch
 
 # Project Goal
 
