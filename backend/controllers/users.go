@@ -5,11 +5,19 @@ import (
 	"net/http"
 )
 
-// Users is our controller for all user related tasks
-type Users struct{}
+// NewUsers returns our user controller
+func NewUsers() *Users {
+	return &Users{}
+}
 
-// Create is used to process the signup form when a user tries to
-// create a new user account.
-func (u *Users) Create(w http.ResponseWriter, r *http.Response) {
-	fmt.Fprintln(w, "This is a temporary response")
+// Users defines our users controller
+type Users struct {
+}
+
+// Create is used to process the signup form when a user
+// tries to create a new user account.
+//
+// POST /signup
+func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "This is a temporary response.")
 }
