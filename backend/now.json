@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "backend-google-photos",
+  "builds": [
+    { "src": "www/**/*", "use": "@now/static" },
+    { "src": "api/**/*.go", "use": "@now/go" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "www/index.html" }
+  ]
+}
