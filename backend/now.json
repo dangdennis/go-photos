@@ -2,9 +2,9 @@
   "version": 2,
   "name": "backend-google-photos",
   "builds": [
-    { "src": "api/**/*.go", "use": "@now/go" }
+    { "src": "routes/**/*.go", "use": "@now/go@canary" }
   ],
   "routes": [
-    { "src": "/", "dest": "www/index.html" }
+    { "src": "/signup", "dest": "routes/signup/signup.go" }
   ]
 }
