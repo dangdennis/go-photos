@@ -40,12 +40,12 @@ func main() {
 	db.AutoMigrate(&User{})
 
 	var u User
-	maxId := 3
+	// maxId := 3
 
-	db.Where("id <= ?", maxId).First(&u)
-	if db.Error != nil {
-		panic(db.Error)
-	}
+	// db.Where("id <= ?", maxId).First(&u)
+	// if db.Error != nil {
+	// 	panic(db.Error)
+	// }
 
 	fmt.Println(u)
 
