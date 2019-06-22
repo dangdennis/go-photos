@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/dangdennis/google-photos/backend/controllers"
+	"github.com/dangdennis/go-photos/backend/controllers"
 
 	"github.com/gorilla/mux"
 )

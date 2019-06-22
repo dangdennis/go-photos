@@ -1,4 +1,4 @@
-module github.com/dangdennis/google-photos/backend
+module github.com/dangdennis/goo-potos/backend
 
 go 1.12
 
