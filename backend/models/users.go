@@ -4,18 +4,27 @@ import (
 	"errors"
 
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var (
+	userPwPepper = "super-secret-salt-string"
 	// ErrNotFound is returned when a resource cannot be found // in the database.
-	ErrNotFound = errors.New("Models: Resource not found")
+	ErrNotFound = errors.New("models: resource not found")
+
+	// ErrInvalidID is returned when an invalid ID is provided
+	// to a method like Delete.
+	ErrInvalidID = errors.New("models: ID provided was invalid")
 )
 
 // User defines the table for users
 type User struct {
 	gorm.Model
-	Name  string
-	Email string `gorm:"not null; unique index"`
+	Name         string
+	Email        string `gorm:"not null; unique index"`
+	Password     string `gorm:"-"`
+	PasswordHash string `gorm:"not null"`
 }
 
 // NewUserService creates a new database connection to serve our users
@@ -56,6 +65,8 @@ func (us *UserService) ByEmail(email string) (*User, error) {
 
 // Create creates a user and inserts into database
 func (us *UserService) Create(user *User) error {
+	pwBytes := []byte(user.Password + userPwPepper)
+	hashedBytes, err := bcrypt.GenerateFromPassword()
 	return us.db.Create(user).Error
 }
 
@@ -67,6 +78,23 @@ func (us *UserService) Update(user *User) error {
 // Close closes the UserService database connection
 func (us *UserService) Close() error {
 	return us.db.Close()
+}
+
+// Delete deletes a user with the provided ID
+func (us *UserService) Delete(id uint) error {
+	if id == 0 {
+		return ErrInvalidID
+	}
+	user := User{Model: gorm.Model{ID: id}}
+	return us.db.Delete(&user).Error
+}
+
+// AutoMigrate will attempt to automatically migrate the users table
+func (us *UserService) AutoMigrate() error {
+	if err := us.db.AutoMigrate(&User{}).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 // DestructiveReset drops our tables and rebuilds them

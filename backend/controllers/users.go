@@ -9,11 +9,14 @@ import (
 
 // NewUsers returns our user controller
 func NewUsers(us *models.UserService) *Users {
-	return &Users{}
+	return &Users{
+		us: us,
+	}
 }
 
 // Users defines our users controller
 type Users struct {
+	us *models.UserService
 }
 
 // SignupForm aggregates our parsed form data
