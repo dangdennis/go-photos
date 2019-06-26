@@ -1,0 +1,12 @@
+.nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav li {
+    min-width: 100px;
+}
+
+.nav a {
+    text-decoration: none;
+}
