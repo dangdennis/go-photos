@@ -35,9 +35,25 @@ func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	fmt.Fprintln(w, "Name is", form.Name)
-	fmt.Fprintln(w, "Email is", form.Email)
-	fmt.Fprintln(w, "Password is", form.Password)
+	fmt.Println("Name :", form.Name)
+	fmt.Println("Email :", form.Email)
+	fmt.Println("Password :", form.Password)
+
+	user := models.User{
+		Name:     form.Name,
+		Email:    form.Email,
+		Password: form.Password,
+	}
+
+	fmt.Println("User Name :", form.Name)
+	fmt.Println("User Email :", form.Email)
+	fmt.Println("User Password :", form.Password)
+
+	if err := u.us.Create(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	fmt.Fprintln(w, "User is", user)
 }
 
 // curl -d "email=value1&password=value2" -X POST http://localhost:3000/signup
@@ -69,6 +85,9 @@ func (u *Users) Login(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
+	fmt.Println("user email", user.Email)
+
 	cookie := http.Cookie{
 		Name:  "email",
 		Value: user.Email,
