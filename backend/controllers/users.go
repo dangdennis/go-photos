@@ -35,10 +35,6 @@ func (u *Users) Create(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	fmt.Println("Name :", form.Name)
-	fmt.Println("Email :", form.Email)
-	fmt.Println("Password :", form.Password)
-
 	user := models.User{
 		Name:     form.Name,
 		Email:    form.Email,

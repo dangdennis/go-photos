@@ -1,45 +1,47 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 
-	"github.com/jinzhu/gorm"
+	"github.com/dangdennis/go-photos/backend/hash"
 	_ "github.com/lib/pq"
 )
 
-const (
-	host     = "localhost"
-	port     = "5432"
-	user     = "dennis"
-	password = ""
-	dbname   = "googlephotos_dev"
-)
+// const (
+// 	host     = "localhost"
+// 	port     = "5432"
+// 	user     = "dennis"
+// 	password = ""
+// 	dbname   = "googlephotos_dev"
+// )
 
 // User defines the table for users
-type User struct {
-	gorm.Model
-	Name  string
-	Email string `gorm:"not null;unique_index"`
-}
+// type User struct {
+// 	gorm.Model
+// 	Name  string
+// 	Email string `gorm:"not null;unique_index"`
+// }
 
 func main() {
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
-		" dbname=%s sslmode=disable",
-		host, port, user, dbname)
+	hmac := hash.NewHMAC("my-secret-key-too")
+	fmt.Println(hmac.Hash("this is my string to hash"))
+	// fmt.Println(rand.String(10))
+	// fmt.Println(rand.RememberToken())
 
-	db, err := gorm.Open("postgres", psqlInfo)
-	if err != nil {
-		panic(err)
-	}
+	// psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
+	// 	" dbname=%s sslmode=disable",
+	// 	host, port, user, dbname)
 
-	defer db.Close()
-	db.LogMode(true)
-	db.AutoMigrate(&User{})
+	// db, err := gorm.Open("postgres", psqlInfo)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	var u User
+	// defer db.Close()
+	// db.LogMode(true)
+	// db.AutoMigrate(&User{})
+
+	// var u User
 	// maxId := 3
 
 	// db.Where("id <= ?", maxId).First(&u)
@@ -47,7 +49,7 @@ func main() {
 	// 	panic(db.Error)
 	// }
 
-	fmt.Println(u)
+	// fmt.Println(u)
 
 	// name, email := getInfo()
 	// u := &User{
@@ -62,16 +64,16 @@ func main() {
 	// fmt.Printf("%+v\n", u)
 }
 
-func getInfo() (string, string) {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("What is your name?")
-	name, _ := reader.ReadString('\n')
-	name = strings.TrimSpace(name)
-	fmt.Println("What is your email?")
-	email, _ := reader.ReadString('\n')
-	email = strings.TrimSpace(email)
-	return name, email
-}
+// func getInfo() (string, string) {
+// 	reader := bufio.NewReader(os.Stdin)
+// 	fmt.Println("What is your name?")
+// 	name, _ := reader.ReadString('\n')
+// 	name = strings.TrimSpace(name)
+// 	fmt.Println("What is your email?")
+// 	email, _ := reader.ReadString('\n')
+// 	email = strings.TrimSpace(email)
+// 	return name, email
+// }
 
 // func main() {
 

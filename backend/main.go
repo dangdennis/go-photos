@@ -29,7 +29,7 @@ func main() {
 		panic(err)
 	}
 	defer us.Close()
-	// us.DestructiveReset()
+	us.DestructiveReset()
 	us.AutoMigrate()
 
 	usersC := controllers.NewUsers(us)
